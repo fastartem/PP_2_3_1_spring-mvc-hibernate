@@ -14,13 +14,11 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Override
     @Transactional
     public void add(User user) {
         entityManager.persist(user);
     }
 
-    @Override
     @Transactional
     public void update(User user) {
         User entity = findById(user.getId());
@@ -31,19 +29,16 @@ public class UserDaoImp implements UserDao {
         entity.setEmail(user.getEmail());
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
     public List<User> listUsers() {
         return entityManager.createQuery("SELECT u FROM User u").getResultList();
     }
 
-    @Override
+    @Transactional
     public void delete(Long id) {
         entityManager.createQuery("delete from User u where u.id=:id")
                 .setParameter("id", id).executeUpdate();
     }
 
-    @Override
     public User findById(Long id) {
         return entityManager.find(User.class, id);
     }

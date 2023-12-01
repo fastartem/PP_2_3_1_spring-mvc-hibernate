@@ -1,5 +1,7 @@
 package web.model;
 
+import javax.validation.constraints.*;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +12,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "The name must contain only letters and cannot be blank")
     @Column(name = "name")
     private String firstName;
 
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "The lastname must contain only letters and cannot be blank")
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank(message = "Email cannot be blank")
+    @Email (message = "Incorrect email")
     @Column(name = "email")
     private String email;
 
