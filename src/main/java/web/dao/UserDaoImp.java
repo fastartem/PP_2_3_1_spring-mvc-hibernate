@@ -14,12 +14,10 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Transactional
     public void add(User user) {
         entityManager.persist(user);
     }
 
-    @Transactional
     public void update(User user) {
         User entity = findById(user.getId());
 
@@ -33,7 +31,6 @@ public class UserDaoImp implements UserDao {
         return entityManager.createQuery("SELECT u FROM User u").getResultList();
     }
 
-    @Transactional
     public void delete(Long id) {
         entityManager.createQuery("delete from User u where u.id=:id")
                 .setParameter("id", id).executeUpdate();
